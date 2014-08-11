@@ -58,6 +58,7 @@ public class DownLoadThread implements Runnable {
 					if(progress==1){
 						System.out.println("完成，需要发送消息");
 						Message msg = handler.obtainMessage();
+						msg.getData().putString("file", file.getAbsolutePath());
 						msg.obj = urlString;
 						handler.sendMessage(msg);
 					}
@@ -89,7 +90,7 @@ public class DownLoadThread implements Runnable {
 		mCallLists.finishBroadcast();
 	}
 	
-	private String getFileName() {
+	public String getFileName() {
 		String temp = urlString.split("//")[1];
 		String[] names = temp.split("/");
 		return names[names.length - 1];

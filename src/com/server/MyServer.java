@@ -6,6 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import android.app.Service;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteCallbackList;
@@ -31,6 +32,12 @@ public class MyServer extends Service {
 			tasks.put(downs.indexOf(finshTask), null);
 			tasks.size();
 			isRunningTask = false;
+			
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.setDataAndType(Uri.parse("file://"+msg.getData().getString("file")), "application/vnd.android.package-archive");
+			startActivity(intent);
+			
 			executorTask();
 		}
 	};
